@@ -1,0 +1,14 @@
+{
+  "name": "stripe-simple-shop",
+  "version": "1.0.0",
+  "description": "A simple website with Stripe Checkout for selling a few products",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "dependencies": {
+    "dotenv": "^16.4.5",
+    "express": "^4.19.2",
+    "stripe": "^16.12.0"
+  }
+}

@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Rent Our Shop Space</title>
+<style>
+  :root {
+    --bg: #f5ede1;
+    --card-bg: #fffaf3;
+    --text: #3b2a1e;
+    --muted: #8a7360;
+    --accent: #a9694f;
+    --accent-hover: #8a4f39;
+    --border: #e6d8c3;
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    background: linear-gradient(180deg, #f5ede1 0%, #ede0cd 100%);
+    color: var(--text);
+  }
+  header {
+    padding: 40px 20px 20px;
+    text-align: center;
+  }
+  header h1 {
+    margin: 0 0 8px;
+    font-size: 2rem;
+    font-family: Georgia, 'Times New Roman', serif;
+  }
+  header p {
+    color: var(--muted);
+    margin: 0;
+  }
+  .nav-link {
+    display: inline-block;
+    margin-top: 12px;
+    color: var(--accent);
+    font-weight: 600;
+    text-decoration: none;
+  }
+  .nav-link:hover { color: var(--accent-hover); }
+  .container {
+    max-width: 960px;
+    margin: 0 auto;
+    padding: 20px;
+  }
+  .grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 20px;
+    margin-bottom: 30px;
+  }
+  .card {
+    background: var(--card-bg);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+  }
+  .card img {
+    width: 100%;
+    aspect-ratio: 1 / 1;
+    object-fit: cover;
+    background: #f0f0f5;
+  }
+  .card-body {
+    padding: 16px;
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+  }
+  .card-body h3 {
+    margin: 0 0 4px;
+    font-size: 1.05rem;
+  }
+  .card-body p {
+    margin: 0 0 12px;
+    color: var(--muted);
+    font-size: 0.9rem;
+    flex: 1;
+  }
+  .price {
+    font-weight: 600;
+    margin-bottom: 4px;
+  }
+  .sub-badge {
+    display: inline-block;
+    background: #ede0cd;
+    color: #8a4f39;
+    font-size: 0.75rem;
+    font-weight: 600;
+    padding: 3px 8px;
+    border-radius: 6px;
+    margin-bottom: 12px;
+  }
+  .qty-row {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  .qty-btn {
+    width: 32px;
+    height: 32px;
+    border-radius: 8px;
+    border: 1px solid var(--border);
+    background: #fafafa;
+    font-size: 1.1rem;
+    cursor: pointer;
+  }
+  .qty-btn:hover { background: #eee; }
+  .qty-value {
+    min-width: 20px;
+    text-align: center;
+    font-weight: 600;
+  }
+  .cart-bar {
+    position: sticky;
+    bottom: 0;
+    background: var(--card-bg);
+    border-top: 1px solid var(--border);
+    padding: 16px 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-radius: 12px 12px 0 0;
+    box-shadow: 0 -4px 14px rgba(0,0,0,0.04);
+  }
+  .cart-total {
+    font-weight: 700;
+    font-size: 1.1rem;
+  }
+  .checkout-btn {
+    background: var(--accent);
+    color: white;
+    border: none;
+    padding: 12px 24px;
+    font-size: 1rem;
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: 600;
+  }
+  .checkout-btn:hover { background: var(--accent-hover); }
+  .checkout-btn:disabled {
+    background: #c7c5f7;
+    cursor: not-allowed;
+  }
+  #message {
+    text-align: center;
+    color: #b00020;
+    margin-top: 10px;
+    min-height: 20px;
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <h1>Rent Our Shop Space</h1>
+  <p>Monthly rental for the space at our location — billed automatically every month.</p>
+  <a class="nav-link" href="/index.html">☕ Back to the cafe menu →</a>
+</header>
+
+<div class="container">
+  <div class="grid" id="product-grid">
+    <!-- Rental option(s) added here by JavaScript -->
+  </div>
+
+  <div class="cart-bar">
+    <div class="cart-total" id="cart-total">Total: $0.00 / month</div>
+    <button class="checkout-btn" id="checkout-btn" disabled>Subscribe</button>
+  </div>
+  <div id="message"></div>
+</div>
+
+<script>
+  let products = [];
+  const quantities = {};
+
+  const grid = document.getElementById('product-grid');
+  const totalEl = document.getElementById('cart-total');
+  const checkoutBtn = document.getElementById('checkout-btn');
+  const messageEl = document.getElementById('message');
+
+  function formatPrice(cents, currency) {
+    return new Intl.NumberFormat('en-US', { style: 'currency', currency: currency.toUpperCase() }).format(cents / 100);
+  }
+
+  function renderProducts() {
+    grid.innerHTML = '';
+    products.forEach((p) => {
+      quantities[p.id] = quantities[p.id] || 0;
+
+      const card = document.createElement('div');
+      card.className = 'card';
+      card.innerHTML = `
+        <img src="${p.image}" alt="${p.name}" />
+        <div class="card-body">
+          <h3>${p.name}</h3>
+          <p>${p.description}</p>
+          <div class="price">${formatPrice(p.price, p.currency)} / month</div>
+          <div class="sub-badge">Monthly subscription</div>
+          <div class="qty-row">
+            <button class="qty-btn" data-action="dec" data-id="${p.id}">−</button>
+            <span class="qty-value" id="qty-${p.id}">0</span>
+            <button class="qty-btn" data-action="inc" data-id="${p.id}">+</button>
+          </div>
+        </div>
+      `;
+      grid.appendChild(card);
+    });
+
+    grid.querySelectorAll('.qty-btn').forEach((btn) => {
+      btn.addEventListener('click', () => {
+        const id = btn.dataset.id;
+        if (btn.dataset.action === 'inc') {
+          quantities[id]++;
+        } else {
+          quantities[id] = Math.max(0, quantities[id] - 1);
+        }
+        document.getElementById(`qty-${id}`).textContent = quantities[id];
+        updateTotal();
+      });
+    });
+  }
+
+  function updateTotal() {
+    let total = 0;
+    let anySelected = false;
+    products.forEach((p) => {
+      if (quantities[p.id] > 0) {
+        total += p.price * quantities[p.id];
+        anySelected = true;
+      }
+    });
+    totalEl.textContent = `Total: ${formatPrice(total, products[0]?.currency || 'usd')} / month`;
+    checkoutBtn.disabled = !anySelected;
+  }
+
+  async function loadProducts() {
+    const res = await fetch('/api/rental');
+    products = await res.json();
+    renderProducts();
+  }
+
+  checkoutBtn.addEventListener('click', async () => {
+    messageEl.textContent = '';
+    checkoutBtn.disabled = true;
+    checkoutBtn.textContent = 'Redirecting to checkout...';
+
+    const items = Object.entries(quantities)
+      .filter(([, qty]) => qty > 0)
+      .map(([id, quantity]) => ({ id, quantity }));
+
+    try {
+      const res = await fetch('/api/create-checkout-session', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ items }),
+      });
+      const data = await res.json();
+
+      if (data.url) {
+        window.location.href = data.url;
+      } else {
+        throw new Error(data.error || 'Something went wrong.');
+      }
+    } catch (err) {
+      messageEl.textContent = `Error: ${err.message}`;
+      checkoutBtn.disabled = false;
+      checkoutBtn.textContent = 'Subscribe';
+    }
+  });
+
+  loadProducts();
+</script>
+
+</body>
+</html>
