@@ -104,7 +104,7 @@ const PRODUCTS = [
     currency: 'myr',
     image: 'https://i.imgur.com/kkM8o9H.png',
     category: 'food',
-    available: false,
+    available: true,
   },
   {
     id: 'mookata',
