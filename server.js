@@ -25,7 +25,68 @@ const PORT = process.env.PORT || 4242;
 // the browser) so nobody can tamper with prices in the checkout.
 // "price" is in the smallest currency unit (cents for USD).
 const PRODUCTS = [
+  
+{
+    id: 'SukiRolls',
+    name: 'Suki Rolls',
+    description: ' Freshly hand-rolled with savory, bite-sized goodness, packed with savory flavors and paired with our signature dipping sauce. A classic crowd-pleaser for a quick, satisfying bite.',
+    price: 1000, // RM 10.00
+    currency: 'myr',
+    image: 'https://i.imgur.com/AJdQA6r.jpeg',
+    category: 'food',
+    available: true,
+  },
+{
+    id: 'MiniBiteRolls',
+    name: 'Mini Bite Rolls',
+    description: 'The ultimate party platter! Enjoy 48 perfectly proportioned bite-sized rolls, designed for easy sharing, catering, and gatherings.',
+    price: 5800, // RM 58.00
+    currency: 'myr',
+    image: 'https://i.imgur.com/CCEnFfZ.jpeg',
+    category: 'food',
+    available: true,
+  },
   {
+    id: 'MixRolls',
+    name: 'Mix Rolls',
+    description: 'Can’t choose just one? Get the best of both worlds with a delicious mix of our popular rolls, packed together in one convenient box.',
+    price: 900, // RM 9.00
+    currency: 'myr',
+    image: 'https://i.imgur.com/11S9JA7.jpeg',
+    category: 'food',
+    available: true,
+  },
+ {
+    id: 'CheesecuitBerry',
+    name: 'Cheesecuit Berry',
+    description: ' A heavenly blend of rich, creamy cheese sauce and crispy layered biscuits, topped with a luscious berry compote for a sweet and tangy balance.',
+    price: 1200, // RM 12.00
+    currency: 'myr',
+    image: 'https://i.imgur.com/cPtWMzD.jpeg',
+    category: 'food',
+    available: true,
+  },
+ {
+    id: 'CheesecuitMini',
+    name: 'Cheesecuit Mini',
+    description: 'MYR 3.00 / cup Your favorite decadent cheese-and-biscuit dessert is a perfectly portioned grab-and-go cup. The ideal sweet treat for any time of day.',
+    price: 300, // RM 3.00
+    currency: 'myr',
+    image: 'https://i.imgur.com/AjePms4.jpeg',
+    category: 'food',
+    available: true,
+  },
+ {
+    id: 'SaladwithSesameDressing',
+    name: 'Salad with Sesame Dressing',
+    description: '10.00 / box Crisp, vibrant garden greens served alongside a nutty, savory roasted sesame dressing for a light, refreshing, and nutritious side.',
+    price: 1000, // RM 10.00
+    currency: 'myr',
+    image: 'https://i.imgur.com/4MSWjjB.jpeg',
+    category: 'food',
+    available: true,
+  },
+{
     id: 'coconutlatte',
     name: 'coconut latte',
     description: 'House espresso, steamed coconut milk, light and creamy.',
@@ -83,69 +144,6 @@ const PRODUCTS = [
     currency: 'myr',
     image: 'https://i.imgur.com/0EhrVAW.png',
     category: 'beverage',
-    available: true,
-  },
-
-{
-    id: 'SukiRolls',
-    name: 'Suki Rolls',
-    description: ' Freshly hand-rolled with savory, bite-sized goodness, packed with savory flavors and paired with our signature dipping sauce. A classic crowd-pleaser for a quick, satisfying bite.',
-    price: 1000, // RM 10.00
-    currency: 'myr',
-    image: 'https://i.imgur.com/AJdQA6r.jpeg',
-    category: 'food',
-    available: true,
-  },
-{
-    id: 'MiniBiteRolls',
-    name: 'Mini Bite Rolls',
-    description: 'The ultimate party platter! Enjoy 48 perfectly proportioned bite-sized rolls, designed for easy sharing, catering, and gatherings.',
-    price: 5800, // RM 58.00
-    currency: 'myr',
-    image: 'https://i.imgur.com/CCEnFfZ.jpeg',
-    category: 'food',
-    available: true,
-  },
-  {
-    id: 'MixRolls',
-    name: 'Mix Rolls',
-    description: 'Can’t choose just one? Get the best of both worlds with a delicious mix of our popular rolls, packed together in one convenient box.',
-    price: 900, // RM 9.00
-    currency: 'myr',
-    image: 'https://i.imgur.com/11S9JA7.jpeg',
-    category: 'food',
-    available: true,
-  },
- {
-    id: 'CheesecuitBerry',
-    name: 'Cheesecuit Berry',
-    description: ' A heavenly blend of rich, creamy cheese sauce and crispy layered biscuits, topped with a luscious berry compote for a sweet and tangy balance.',
-    price: 1200, // RM 12.00
-    currency: 'myr',
-    image: 'https://i.imgur.com/cPtWMzD.jpeg',
-    category: 'food',
-    available: true,
-  },
- {
-    id: 'CheesecuitMini',
-    name: 'Cheesecuit Mini',
-    description: 'MYR 3.00 / cup Your favorite decadent cheese-and-biscuit dessert in a perfectly portioned grab-and-go cup. The ideal sweet treat for any time of day.
-',
-    price: 300, // RM 3.00
-    currency: 'myr',
-    image: 'https://i.imgur.com/AjePms4.jpeg',
-    category: 'food',
-    available: true,
-  },
- {
-    id: 'SaladwithSesameDressing',
-    name: 'Salad with Sesame Dressing',
-    description: '10.00 / box
- Crisp, vibrant garden greens served alongside a nutty, savory roasted sesame dressing for a light, refreshing, and nutritious side.',
-    price: 1000, // RM 10.00
-    currency: 'myr',
-    image: 'https://i.imgur.com/4MSWjjB.jpeg',
-    category: 'food',
     available: true,
   },
   {
